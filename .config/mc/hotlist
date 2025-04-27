@@ -1,0 +1,6 @@
+GROUP "home"
+  ENTRY "cloud" URL "~/cloud"
+  ENTRY "dev" URL "~/dev"
+  ENTRY "download" URL "~/download"
+ENDGROUP
+
