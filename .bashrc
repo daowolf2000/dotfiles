@@ -11,7 +11,7 @@ alias ip='ip --color=auto'
 alias diff='diff --color=auto'
 
 export TERM=xterm-color
-export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
+export GREP_OPTIONS='--color=auto'
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
@@ -54,7 +54,7 @@ HISTFILESIZE=20000
 # Формат метки времени в файле истории
 export HISTTIMEFORMAT="%m.%d-%H:%M  "
 # Не сохранять в истории следующие команды
-export HISTIGNORE="man *:whoami:free:free *:du:du *:mount:df:df *:ls:history:history *"
+export HISTIGNORE="man *:whoami:id:free:free *:du:du *:mount:df:df *:ls:history:history *:* --help:htop:pwd:* --version:cd *:mc"
 
 
 
@@ -184,7 +184,7 @@ function prompt_command {
 
 	# build b/w prompt for git and virtual env
 	[[ ! -z $GIT_BRANCH ]] && PS1_GIT=" (git: ${GIT_BRANCH})"
-	[[ ! -z $VIRTUAL_ENV ]] && PS1_VENV=" (venv: ${VIRTUAL_ENV#$WORKON_HOME})"
+	[[ ! -z $VIRTUAL_ENV ]] && PS1_VENV=" (venv: ${VIRTUAL_ENV#$HOME\/})"
 
 	# calculate prompt length
 	local PS1_length=$((${#USER}+${#LOCAL_HOSTNAME}+${#PWDNAME}+${#PS1_GIT}+${#PS1_VENV}+3))
@@ -213,7 +213,7 @@ function prompt_command {
 		fi
 
 		# build python venv status for prompt
-		[[ ! -z $VIRTUAL_ENV ]] && PS1_VENV=" (venv: ${color_blue}${VIRTUAL_ENV#$WORKON_HOME}${color_off})"
+		[[ ! -z $VIRTUAL_ENV ]] && PS1_VENV=" (venv: ${color_blue}${VIRTUAL_ENV#$HOME\/}${color_off})"
 	fi
 
 	# set new color prompt
