@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Получаем путь к каталогу, где находится сам скрипт
+SOURCE_DIR="$(dirname "$(realpath "$0")")"
+
+# Определяем домашний каталог текущего пользователя
+HOME_DIR="$HOME"
+
+# Список исключаемых путей (например, .git и README.md)
+EXCLUDE_LIST=(".git" "README.md" "install")
+
+UPDATED=false
+
+# Функция удаления существующего файла, если он не ссылка
+remove_if_not_link() {
+    local path="$1"
+    if [[ ! -L "$path" && -e "$path" ]]; then
+        rm -f "$path"
+        echo "DEL:  '$path'"
+        UPDATED=true
+    fi
+}
+
+# Обходим рекурсивно директорию SOURCE_DIR
+find "$SOURCE_DIR" -type f -iname "*" \
+    -not -path "*/.git/*" \
+    -not -name ".git" \
+    -not -name ".gitignore"  \
+    -not -name "README.md" \
+    -not -name "install"  | while read file_path; do
+    # Относительный путь от SOURCE_DIR
+    relative_path="${file_path#$SOURCE_DIR/}"
+    
+    # Путь назначения внутри HOME_DIR
+    dest_dir="$HOME_DIR/$relative_path"
+    dest_dirname=$(dirname "$dest_dir")
+    
+    # Удаляем файл, если он существует и не является ссылкой
+    remove_if_not_link "$dest_dir"
+    
+    # Создаем промежуточные директории, если они отсутствуют
+    mkdir -p "$dest_dirname"
+    
+    # Проверка существования символической ссылки
+    if [[ ! -L "$dest_dir" || $(readlink "$dest_dir") != "$file_path" ]]; then
+        # Создание новой символической ссылки
+        ln -sf "$file_path" "$dest_dir"
+        echo "UPD:  $dest_dir -> $file_path"
+        UPDATED=true
+    else
+        echo "PASS: $dest_dir -> $file_path"
+    fi
+done
+
+if $UPDATED; then
+    echo "STATUS: UPDATED"
+else
+    echo "STATUS: PASSED"
+fi
