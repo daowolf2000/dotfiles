@@ -1,0 +1,65 @@
+# См. https://habr.com/ru/articles/886538/
+
+[user]
+	email = daowolf@yandex.ru
+	name = daowolf
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[init]
+	defaultBranch = main
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+[color]
+        ui = true
+# Явно пойдёт на пользу git 
+
+[column]
+        ui = auto
+[branch]
+        sort = -committerdate
+[tag]
+        sort = version:refname
+[diff]
+        algorithm = histogram
+        colorMoved = plain
+        mnemonicPrefix = true
+        renames = true
+[push]
+        default = simple
+        autoSetupRemote = true
+        followTags = true       
+[pull]
+        rebase = true
+[fetch]
+        prune = true
+        pruneTags = true
+        all = true
+
+# чёрт возьми, почему бы и нет?
+
+[help]
+        autocorrect = prompt
+[commit]
+        verbose = true
+[rerere]
+        enabled = true
+        autoupdate = true
+[core]
+        excludesfile = ~/.gitignore
+[rebase]
+        autoSquash = true
+        autoStash = true
+        updateRefs = true
+
+# дело вкуса (раскомментируйте, если не боитесь)
+
+[core]
+        # fsmonitor = true
+        # untrackedCache = true
+[merge]
+        # (just 'diff3' if git version < 2.3)
+        # conflictstyle = zdiff3 

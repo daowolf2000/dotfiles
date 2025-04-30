@@ -1,0 +1,23 @@
+# Editor and OS files
+.ansible/
+.direnv/
+.venv/
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Enviroment files
+.env
+.envrc
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+*.retry
+*.log
+
