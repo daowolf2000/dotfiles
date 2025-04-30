@@ -1,65 +1,76 @@
 # См. https://habr.com/ru/articles/886538/
 
+# Основные настройки пользователя
 [user]
-	email = daowolf@yandex.ru
-	name = daowolf
+    email = daowolf@yandex.ru    # Адрес для привязки коммитов
+    name  = daowolf              # Имя автора коммитов
+
+# Интеграция с GitHub через GitHub CLI
 [credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+    helper = !/usr/bin/gh auth git-credential  # Авторизация через GitHub CLI
+
+# Настройки инициализации репозитория
 [init]
-	defaultBranch = main
+    defaultBranch = main  # Имя ветки по умолчанию
+
+# Псевдонимы команд (ускорение работы)
 [alias]
-	co = checkout
-	br = branch
-	ci = commit
-	st = status
+    co = checkout   # Переключение между ветками/коммитами
+    br = branch     # Управление ветками
+    ci = commit     # Создание коммитов
+    st = status     # Просмотр состояния репозитория
+
+# Визуальные улучшения
 [color]
-        ui = true
-# Явно пойдёт на пользу git 
-
+    ui    = true  # Цветной вывод команд
 [column]
-        ui = auto
+    ui    = auto  # Автоматическое форматирование таблиц
+
+# Управление ветками и тегами
 [branch]
-        sort = -committerdate
+    sort  = -committerdate  # Сортировка веток по дате изменений
 [tag]
-        sort = version:refname
+    sort  = version:refname  # Сортировка тегов как версий
+
+# Настройки сравнения изменений
 [diff]
-        algorithm = histogram
-        colorMoved = plain
-        mnemonicPrefix = true
-        renames = true
+    algorithm       = histogram  # Улучшенный алгоритм сравнения
+    colorMoved      = plain      # Подсветка перемещённых строк
+    mnemonicPrefix  = true       # Человекочитаемые префиксы
+    renames         = true       # Автоматическое определение переименований
+
+# Настройки отправки изменений
 [push]
-        default = simple
-        autoSetupRemote = true
-        followTags = true       
+    default          = simple  # Безопасная стратегия push
+    autoSetupRemote  = true    # Автоматическое создание upstream
+    followTags       = true    # Отправка связанных тегов
+
+# Настройки получения изменений
 [pull]
-        rebase = true
+    rebase = true  # Автоматический rebase вместо merge
 [fetch]
-        prune = true
-        pruneTags = true
-        all = true
+    prune     = true  # Автоматическая очистка удалённых веток
+    pruneTags = true  # Очистка удалённых тегов
+    all       = true  # Загрузка всех удалённых репозиториев
 
-# чёрт возьми, почему бы и нет?
-
+# Система подсказок
 [help]
-        autocorrect = prompt
+    autocorrect = prompt  # Автокоррекция команд с подтверждением
+
+# Настройки коммитов
 [commit]
-        verbose = true
+    verbose = true  # Подробный вывод при коммите
+
+# Автоматизация разрешения конфликтов
 [rerere]
-        enabled = true
-        autoupdate = true
-[core]
-        excludesfile = ~/.gitignore
+    enabled    = true  # Запоминание решений конфликтов
+    autoupdate = true  # Автоматическое применение решений
+
+# Автоматизация rebase
 [rebase]
-        autoSquash = true
-        autoStash = true
-        updateRefs = true
+    autoSquash  = true  # Автоматическое объединение fixup-коммитов
+    autoStash   = true  # Автосохранение изменений перед rebase
+    updateRefs  = true  # Обновление зависимых веток
 
-# дело вкуса (раскомментируйте, если не боитесь)
-
-[core]
-        # fsmonitor = true
-        # untrackedCache = true
 [merge]
-        # (just 'diff3' if git version < 2.3)
-        # conflictstyle = zdiff3 
+    conflictstyle = zdiff3  # Улучшенный формат конфликтов (требует Git >= 2.3)
