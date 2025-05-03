@@ -72,5 +72,5 @@
     autoStash   = true  # Автосохранение изменений перед rebase
     updateRefs  = true  # Обновление зависимых веток
 
-[merge]
-    conflictstyle = zdiff3  # Улучшенный формат конфликтов (требует Git >= 2.3)
+# [merge]
+#     conflictstyle = zdiff3  # Улучшенный формат конфликтов (требует Git >= 2.3)
