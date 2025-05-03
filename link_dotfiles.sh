@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# определения цветов для Bash
+NC='\033[0m'       # No Color / Сброс
+BLACK='\033[0;30m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BOLD_WHITE='\033[1;37m'
+
+tabs 8
+
 # Получаем путь к каталогу, где находится сам скрипт
 if [ -n "$1" ]; then
     SOURCE_DIR="$1"
@@ -29,8 +39,17 @@ backup_file() {
     mkdir -p "$backup_dirname"
     
     mv "$src" "$backup_path"
-    echo "BACKUP:  $src -> $backup_path"
+    echo -e "${BLUE}BACKUP${NC}\t $relative_path"
 }
+
+HEADER="|  ${BOLD_WHITE}FROM:${NC} $SOURCE_DIR, ${BOLD_WHITE}TO:${NC} $DEST_DIR, ${BOLD_WHITE}BACKUP:${NC} $BACKUP_DIR)  |"
+HEADER_STRIPPED=$(echo -e "$HEADER" | sed -r 's/\x1B\[[0-9;]*[mK]//g')
+fillsize=${#HEADER_STRIPPED}
+while [[ $fillsize -gt 0 ]]; do FILL="${FILL}-"; fillsize=$(($fillsize-1)); done
+
+echo -e "$FILL"
+echo -e "$HEADER"
+echo -e "$FILL"
 
 # Обходим рекурсивно директорию SOURCE_DIR
 find "$SOURCE_DIR" -type f -iname "*" | grep -Ev "$SOURCE_DIR/(\.git\/|\.gitignore|README\.md|link_dotfiles\.sh)" | while read file_path; do
@@ -53,8 +72,8 @@ find "$SOURCE_DIR" -type f -iname "*" | grep -Ev "$SOURCE_DIR/(\.git\/|\.gitigno
     if [[ ! -L "$dest_dir" || $(readlink "$dest_dir") != "$file_path" ]]; then
         # Создание новой символической ссылки
         ln -sf "$file_path" "$dest_dir"
-        echo "LINK:   $dest_dir -> $file_path"
+        echo -e "${YELLOW}LINK${NC}\t $relative_path"
     else
-        echo "PASS:   $dest_dir -> $file_path"
+        echo -e "${GREEN}PASS${NC}\t $relative_path"
     fi
 done
