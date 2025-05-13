@@ -247,3 +247,8 @@ complete -C /usr/local/bin/terraform terraform
 ###
 export DIRENV_LOG_FORMAT=
 eval "$(direnv hook bash)"   # или для zsh/fish аналогично
+
+# Запуск tmux автоматически при входе в терминал, если не в tmux
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#   tmux attach -t default || tmux new -s default
+# fi
