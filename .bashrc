@@ -164,9 +164,12 @@ esac
 ###
 export DIRENV_LOG_FORMAT=
 PROMPT_COMMAND="history -a"
-complete -C /usr/local/bin/terraform terraform
+
 eval "$(direnv hook bash)"   # или для zsh/fish аналогично
 eval "$(starship init bash)"
+
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
 
 # Запуск tmux автоматически при входе в терминал, если не в tmux
 # if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
