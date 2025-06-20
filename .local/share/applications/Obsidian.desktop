@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Obsidian
+Exec=/home/daowolf/.local/apps/Obsidian.AppImage
+Icon=/home/daowolf/.local/share/icons/obsidian.png
+Comment=
+Terminal=false
+PrefersNonDefaultGPU=true
+
+Type=Application
+NoDisplay=false
+StartupWMClass=obsidian
+
